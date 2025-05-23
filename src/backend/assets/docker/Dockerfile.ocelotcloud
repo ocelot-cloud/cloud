@@ -1,0 +1,11 @@
+FROM alpine:3.21.3
+RUN apk add --no-cache docker-cli docker-compose sshpass openssh-client
+COPY src/frontend/dist /opt/ocelot/dist
+COPY src/backend/backend /opt/ocelot/backend
+COPY src/backend/assets/docker/ocelotdb /opt/ocelot/assets/docker/ocelotdb
+COPY src/backend/assets/docker/Dockerfile.restic /opt/ocelot/assets/docker/
+COPY src/backend/assets/docker/sampleapp /opt/ocelot/assets/docker/sampleapp
+COPY src/backend/assets/migrations /opt/ocelot/assets/migrations
+RUN mkdir -p /opt/ocelot/data
+WORKDIR /opt/ocelot
+ENTRYPOINT ["/opt/ocelot/backend"]

@@ -1,0 +1,14 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:1.32.7
+    container_name: demo_vaultwarden_vaultwarden
+    ports:
+      - 8080:80
+    environment:
+      - ADMIN_TOKEN=abc
+      - SIGNUPS_ALLOWED=true
+    volumes:
+      - demo_vaultwarden_data:/data
+
+volumes:
+  demo_vaultwarden_data:

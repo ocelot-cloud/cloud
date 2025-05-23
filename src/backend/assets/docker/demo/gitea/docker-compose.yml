@@ -1,0 +1,9 @@
+services:
+  gitea:
+    image: gitea/gitea:1.20.2
+    container_name: demo_gitea_gitea
+    volumes:
+      - demo_gitea_data:/data
+
+volumes:
+  demo_gitea_data:

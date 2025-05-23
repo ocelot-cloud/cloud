@@ -1,0 +1,8 @@
+FROM alpine:3.21.3
+ARG UID=1001
+ARG GID=1001
+RUN addgroup -g ${GID} mygroup && \
+    adduser -D -u ${UID} -G mygroup myuser
+USER myuser
+WORKDIR /home/myuser
+ENTRYPOINT ["sleep", "infinity"]

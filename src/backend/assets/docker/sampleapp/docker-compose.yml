@@ -1,0 +1,14 @@
+services:
+  sampleapp:
+    image: sampleapp:local
+    container_name: samplemaintainer_sampleapp_sampleapp
+    environment:
+      - VERSION=1.0
+    ports:
+      - 8085:3000
+    volumes:
+      - samplemaintainer_sampleapp_data:/data
+
+volumes:
+  samplemaintainer_sampleapp_data:
+    name: samplemaintainer_sampleapp_data

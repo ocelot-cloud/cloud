@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17.2-alpine3.20
+    container_name: ocelotcloud_ocelotdb_ocelotdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=postgres
+    volumes:
+      - ocelotcloud_ocelotdb_data:/var/lib/postgresql/data
+    networks:
+        - ocelotcloud_ocelotdb
+    restart: unless-stopped
+
+networks:
+  ocelotcloud_ocelotdb:
+    external: true
+
+volumes:
+  ocelotcloud_ocelotdb_data:
+    name: ocelotcloud_ocelotdb_data
