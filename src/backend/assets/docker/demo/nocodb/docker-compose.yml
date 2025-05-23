@@ -1,0 +1,9 @@
+services:
+  nocodb:
+    image: "nocodb/nocodb:0.111.1"
+    container_name: demo_nocodb_nocodb
+    volumes:
+      - demo_nocodb_data:/usr/app/data
+
+volumes:
+  demo_nocodb_data:

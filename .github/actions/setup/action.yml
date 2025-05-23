@@ -1,0 +1,43 @@
+name: 'Setup and Build Environment'
+description: 'Sets up environment and builds the Go application'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.24.1'
+        cache: true
+        cache-dependency-path: |
+          src/backend/go.mod
+          src/ci-runner/go.mod
+
+    - name: Set up Node.js with npm
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.11.0'
+        cache: 'npm'
+        cache-dependency-path: |
+          src/cypress/package-lock.json
+
+    - name: Set up Node.js with yarn
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.11.0'
+        cache: 'yarn'
+        cache-dependency-path: |
+          src/frontend/yarn.lock
+
+    - name: Set up Docker Compose
+      uses: docker/setup-compose-action@v1
+      with:
+        version: 'v2.24.6'
+
+    - name: Install and cache APT tools
+      uses: tecolicom/actions-use-apt-tools@v1
+      with:
+        tools: restic rclone
+        cache: yes

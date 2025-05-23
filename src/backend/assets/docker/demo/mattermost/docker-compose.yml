@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:13-alpine
+    container_name: demo_mattermost_postgres
+    volumes:
+      - demo_mattermost_postgres_data:/var/lib/postgresql/data
+    environment:
+      - TZ=UTC
+      - POSTGRES_USER=mattermost
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mattermost
+
+  mattermost:
+    depends_on:
+      - postgres
+    image: mattermost/mattermost-team-edition:10.1.6
+    container_name: demo_mattermost_mattermost
+    ports:
+      - "8065:8065"
+    volumes:
+      - demo_mattermost_config:/mattermost/config:rw
+      - demo_mattermost_data:/mattermost/data:rw
+      - demo_mattermost_logs:/mattermost/logs:rw
+      - demo_mattermost_plugins:/mattermost/plugins:rw
+      - demo_mattermost_client_plugins:/mattermost/client/plugins:rw
+      - demo_mattermost_bleve_index:/mattermost/bleve-indexes:rw
+    environment:
+      - TZ=UTC
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:password@demo_mattermost_postgres:5432/mattermost?sslmode=disable&connect_timeout=10
+      - MM_BLEVESETTINGS_INDEXDIR=/mattermost/bleve-indexes
+
+volumes:
+  demo_mattermost_postgres_data:
+  demo_mattermost_config:
+  demo_mattermost_data:
+  demo_mattermost_logs:
+  demo_mattermost_plugins:
+  demo_mattermost_client_plugins:
+  demo_mattermost_bleve_index:

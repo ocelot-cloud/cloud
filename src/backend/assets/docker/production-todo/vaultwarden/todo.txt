@@ -1,0 +1,1 @@
+* requires random token generation and env injection of the token to ADMIN_TOKEN in docker-compose.yml
