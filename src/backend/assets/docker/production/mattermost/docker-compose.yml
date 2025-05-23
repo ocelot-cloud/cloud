@@ -27,3 +27,12 @@ services:
       - POSTGRES_USER=mattermost
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mattermost
+
+volumes:
+  ocelotcloud_mattermost_postgres_data:
+  ocelotcloud_mattermost_config:
+  ocelotcloud_mattermost_data:
+  ocelotcloud_mattermost_logs:
+  ocelotcloud_mattermost_plugins:
+  ocelotcloud_mattermost_client_plugins:
+  ocelotcloud_mattermost_bleve_index:
