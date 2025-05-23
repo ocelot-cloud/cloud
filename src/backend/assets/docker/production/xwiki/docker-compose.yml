@@ -2,7 +2,6 @@ services:
   xwiki:
     image: "xwiki:17.2.0-postgres-tomcat"
     container_name: ocelotcloud_xwiki_xwiki
-    restart: unless-stopped
     depends_on:
       - db
     environment:
@@ -15,7 +14,6 @@ services:
   db:
     image: "postgres:17.4-alpine"
     container_name: ocelotcloud_xwiki_db
-    restart: unless-stopped
     volumes:
       - ocelotcloud_xwiki_postgres:/var/lib/postgresql/data
     environment:
