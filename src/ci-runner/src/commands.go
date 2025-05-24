@@ -101,7 +101,6 @@ func TestsFast() {
 	TestUnitsFast()
 	TestNativelyRunningBackendMocked()
 	TestFrontend()
-	TestIntegration()
 }
 
 func TestIntegration() {
