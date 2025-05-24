@@ -36,6 +36,7 @@ func TestMain(m *testing.M) {
 
 func setup() {
 	cleanup()
+	cloud.CreateExternalDockerNetworkAndConnectOcelotCloud(tools.OcelotDbMaintainer, tools.ResticAppName)
 	err := PrepareLocalBackupContainer()
 	if err != nil {
 		Logger.Fatal("Failed to prepare backup container and repos: %v", err)
@@ -90,6 +91,10 @@ func assertNoBackupsPresent(t *testing.T, sampleBackupRequest tools.BackupListRe
 }
 
 func restoreBackupAndAssertRestoredFiles(t *testing.T, backupId string) {
+	/* TODO?
+	_, err := executeInAppContainer(`[ -d "testfolder" ] || exit 1`)
+	assert.Nil(t, err)
+	*/
 	assert.Nil(t, runCommand("docker rm -f "+tools.SampleAppDockerContainer))
 	assert.Nil(t, runCommand("docker volume rm "+tools.SampleAppDockerVolume))
 	_, err := executeInAppContainer(`[ ! -d "testfolder" ] || exit 1`)

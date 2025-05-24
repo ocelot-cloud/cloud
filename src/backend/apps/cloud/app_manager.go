@@ -78,7 +78,7 @@ func CreateExternalDockerNetworkAndConnectOcelotCloud(maintainer, app string) {
 	networkCreationCmd := fmt.Sprintf("docker network ls | grep -q %s || docker network create %s", networkName, networkName)
 	err := utils.ExecuteShellCommand(networkCreationCmd)
 	if err != nil {
-		Logger.Fatal("Failed to create network: %v", err)
+		Logger.Error("Failed to create network: %v", err)
 	}
 	ConnectOcelotCloudWithNetwork(networkName)
 }
