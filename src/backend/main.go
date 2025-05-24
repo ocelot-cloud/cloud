@@ -61,7 +61,6 @@ func runServer() {
 	setup.VerifyCliToolInstallations()
 	createOcelotCloudDockerNetwork()
 	utils.Logger = tools.Logger
-	tools.CreateOcelotTempDir()
 	setup.InitializeDatabase()
 	tools.LogGlobalVariables()
 
@@ -87,10 +86,7 @@ func addWipeEndpointIfTestingProfileIsEnabled() {
 
 func createOcelotCloudDockerNetwork() {
 	if tools.Config.IsUsingDockerNetwork {
-		cloud.CreateExternalDockerNetworkAndConnectOcelotCloud(tools.RepoApp{
-			Maintainer: tools.OcelotDbMaintainer,
-			AppName:    tools.OcelotDbAppName,
-		})
+		cloud.CreateExternalDockerNetworkAndConnectOcelotCloud(tools.OcelotDbMaintainer, tools.OcelotDbAppName)
 	}
 }
 

@@ -16,7 +16,6 @@ func TestMain(t *testing.M) {
 }
 
 func TestAppCreation(t *testing.T) {
-	tools.CreateOcelotTempDir()
 	defer WipeWholeDatabase()
 	appId := createSampleAppAndReturnRepoId(t)
 

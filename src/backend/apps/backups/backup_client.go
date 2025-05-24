@@ -177,7 +177,7 @@ func prepareResticOperationAndReturnCommandEnvs(isLocalBackup bool) ([]string, e
 }
 
 func createZipFile(backup BackupCreationDto) (string, string, error) {
-	tempDir, err := os.MkdirTemp(tools.OcelotCloudTempDir, "temp")
+	tempDir, err := os.MkdirTemp(tools.TempDir, "temp")
 	if err != nil {
 		return "", "", err
 	}
@@ -204,7 +204,8 @@ func executeInResticContainer(command string, appVolumes, resticTags, envs []str
 		envFlags += `-e ` + env + ` `
 	}
 
-	wholeCommand := fmt.Sprintf(`docker run --rm --name=restic --network host %s-v %s:%s %s%s--entrypoint "" -v restic_rclone:/root/.config/rclone -v restic_ssh:/root/.ssh restic:local sh -c "%s %s"`, mountVolume, backupDockerVolumeName, backupRepositoryPathInResticContainer, volumeFlags, envFlags, command, resticTagsFlags)
+	// the "--network host" is only needed for testing during development
+	wholeCommand := fmt.Sprintf(`docker run --rm --network host %s-v %s:%s %s%s--entrypoint "" -v restic_rclone:/root/.config/rclone -v restic_ssh:/root/.ssh restic:local sh -c "%s %s"`, mountVolume, backupDockerVolumeName, backupRepositoryPathInResticContainer, volumeFlags, envFlags, command, resticTagsFlags)
 	return runCommandWithOutputString(wholeCommand)
 }
 
@@ -358,7 +359,7 @@ func (b *RealBackupManager) RestoreBackup(request tools.BackupOperationRequest) 
 }
 
 func (b *RealBackupManager) fetchAndPrepareZip(backupId string, envs []string) ([]byte, []string, error) {
-	tempDir, err := os.MkdirTemp(tools.OcelotCloudTempDir, "temp")
+	tempDir, err := os.MkdirTemp(tools.TempDir, "temp")
 	if err != nil {
 		return nil, nil, err
 	}

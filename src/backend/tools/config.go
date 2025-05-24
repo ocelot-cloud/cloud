@@ -9,7 +9,7 @@ import (
 
 const (
 	CookieExpirationTime  = 30 * 24 * time.Hour
-	OcelotCloudTempDir    = "/tmp/ocelotcloud"
+	TempDir               = "/tmp"
 	OcelotAuthCookieName  = "ocelot-auth"
 	OcelotQuerySecretName = "ocelot-secret"
 	TestCookieValue       = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"

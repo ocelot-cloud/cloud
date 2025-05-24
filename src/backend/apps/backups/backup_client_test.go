@@ -90,9 +90,11 @@ func assertNoBackupsPresent(t *testing.T, sampleBackupRequest tools.BackupListRe
 }
 
 func restoreBackupAndAssertRestoredFiles(t *testing.T, backupId string) {
+	_, err := executeInAppContainer(`[ -d "testfolder" ] || exit 1`)
+	assert.Nil(t, err)
 	assert.Nil(t, runCommand("docker rm -f "+tools.SampleAppDockerContainer))
 	assert.Nil(t, runCommand("docker volume rm "+tools.SampleAppDockerVolume))
-	_, err := executeInAppContainer(`[ ! -d "testfolder" ] || exit 1`)
+	_, err = executeInAppContainer(`[ ! -d "testfolder" ] || exit 1`)
 	assert.Nil(t, err)
 	backupInfo, err := clients.BackupManager.RestoreBackup(tools.BackupOperationRequest{
 		BackupId: backupId,

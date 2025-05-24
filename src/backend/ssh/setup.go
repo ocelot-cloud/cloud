@@ -34,7 +34,7 @@ func ShutDownSshTestContainer() {
 }
 
 func StartSshTestContainer() {
-	tr.ExecuteInDir(tools.DockerDir, "bash -c 'docker compose -f docker-compose.dummy-ssh.yml down || true'")
+	tr.ExecuteInDir(tools.DockerDir, "docker compose -f docker-compose.dummy-ssh.yml down || true")
 	tr.ExecuteInDir(tools.DockerDir, "docker compose -f docker-compose.dummy-ssh.yml up -d")
 	time.Sleep(1 * time.Second)
 }

@@ -44,7 +44,7 @@ func (r *RealAppManager) StartApp(appId int) error {
 		return errors.New(cantHaveTwoAppsWithSameNameRunningAtSameTime)
 	}
 
-	CreateExternalDockerNetworkAndConnectOcelotCloud(*app)
+	CreateExternalDockerNetworkAndConnectOcelotCloud(app.Maintainer, app.AppName)
 
 	dockerStackName := app.Maintainer + "_" + app.AppName
 	cmd := exec.Command("docker", "compose", "-p", dockerStackName, "up", "-d") // #nosec G204 (CWE-78): Execution as root with variables in subprocess is required by design
@@ -73,12 +73,12 @@ func isAnotherAppWithSameNameRunningAtSameTime(app *tools.RepoApp) (bool, error)
 	return false, nil
 }
 
-func CreateExternalDockerNetworkAndConnectOcelotCloud(app tools.RepoApp) {
-	networkName := app.Maintainer + "_" + app.AppName
+func CreateExternalDockerNetworkAndConnectOcelotCloud(maintainer, app string) {
+	networkName := maintainer + "_" + app
 	networkCreationCmd := fmt.Sprintf("docker network ls | grep -q %s || docker network create %s", networkName, networkName)
 	err := utils.ExecuteShellCommand(networkCreationCmd)
 	if err != nil {
-		Logger.Fatal("Failed to create network: %v", err)
+		Logger.Error("Failed to create network: %v", err)
 	}
 	ConnectOcelotCloudWithNetwork(networkName)
 }

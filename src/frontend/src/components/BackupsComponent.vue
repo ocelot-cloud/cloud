@@ -199,11 +199,10 @@ export default defineComponent({
     }
 
     watch(isLocal, () => {
-      fetchApps()
-      if (selectedAppId.value != "") {
-        fetchBackupsOfSelectedApp()
-      }
+      apps.value = []
+      backups.value = []
       selectedAppId.value = ""
+      fetchApps()
      })
 
     const formatTimestamp = (timestamp: string) => {

@@ -164,7 +164,7 @@ func (s *SshClientReal) GetKnownHosts(host, port string) (string, error) {
 }
 
 func (s *SshClientReal) TestWhetherSshAccessWorks(repo tools.RemoteBackupRepository) error {
-	tempDir, err := os.CreateTemp(tools.OcelotCloudTempDir, "known_hosts_")
+	tempDir, err := os.CreateTemp(tools.TempDir, "known_hosts_")
 	if err != nil {
 		return err
 	}

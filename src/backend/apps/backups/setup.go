@@ -57,7 +57,7 @@ func PrepareLocalBackupContainer() error {
 	checkImage := "docker images -q restic:local"
 	output, err := runCommandWithOutputString(checkImage)
 	if err != nil {
-		Logger.Fatal("could not check for restic image: %v", err)
+		Logger.Error("could not check for restic image: %v", err)
 		return err
 	}
 

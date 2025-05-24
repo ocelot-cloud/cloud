@@ -18,7 +18,6 @@ import (
 )
 
 func TestUpdateAppVersion(t *testing.T) {
-	tools.CreateOcelotTempDir()
 	defer updateUnitCleanup(t)
 	updateUnitSetup(t)
 	appId := prepareAppWithOldVersion(t)

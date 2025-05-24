@@ -28,7 +28,7 @@ func getDockerCommand(profile, imageTag string, isRemoteDeployment bool) string 
 		"-e LOG_LEVEL=DEBUG",
 		"-e INITIAL_ADMIN_NAME=admin",
 		"-e INITIAL_ADMIN_PASSWORD=password",
-		"-v /tmp/ocelotcloud:/tmp/ocelotcloud",
+		"-v /tmp:/tmp",
 		"-v /var/run/docker.sock:/var/run/docker.sock",
 	}
 
