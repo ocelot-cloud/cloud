@@ -43,12 +43,6 @@ func ListBackupsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tools.TryLockAndRespondForError(w, "list backups")
-	if err != nil {
-		return
-	}
-	defer tools.AppOperationMutex.Unlock()
-
 	backups, err := clients.BackupManager.ListBackupsOfApp(*listRequest)
 	if err != nil {
 		Logger.Error("Error listing backups")
@@ -138,12 +132,6 @@ func VersionUpdateHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ListAppsOfBackupRepository(w http.ResponseWriter, r *http.Request) {
-	err := tools.TryLockAndRespondForError(w, "list apps of backup repository")
-	if err != nil {
-		return
-	}
-	defer tools.AppOperationMutex.Unlock()
-
 	readFromLocalBackupRepo, err := validation.ReadBody[tools.SingleBool](w, r)
 	if err != nil {
 		return

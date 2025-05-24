@@ -204,7 +204,7 @@ func executeInResticContainer(command string, appVolumes, resticTags, envs []str
 		envFlags += `-e ` + env + ` `
 	}
 
-	wholeCommand := fmt.Sprintf(`docker run --rm --name=restic --network host %s-v %s:%s %s%s--entrypoint "" -v restic_rclone:/root/.config/rclone -v restic_ssh:/root/.ssh restic:local sh -c "%s %s"`, mountVolume, backupDockerVolumeName, backupRepositoryPathInResticContainer, volumeFlags, envFlags, command, resticTagsFlags)
+	wholeCommand := fmt.Sprintf(`docker run --rm --network %s %s-v %s:%s %s%s--entrypoint "" -v restic_rclone:/root/.config/rclone -v restic_ssh:/root/.ssh restic:local sh -c "%s %s"`, tools.ResticDockerNetwork, mountVolume, backupDockerVolumeName, backupRepositoryPathInResticContainer, volumeFlags, envFlags, command, resticTagsFlags)
 	return runCommandWithOutputString(wholeCommand)
 }
 

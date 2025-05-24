@@ -81,6 +81,8 @@ func CreateTempZippedApp(
 }
 
 var (
-	OcelotDbMaintainer = "ocelotcloud"
-	OcelotDbAppName    = "ocelotdb"
+	OcelotDbMaintainer  = "ocelotcloud"
+	OcelotDbAppName     = "ocelotdb"
+	ResticAppName       = "restic"
+	ResticDockerNetwork = OcelotDbMaintainer + "_" + ResticAppName
 )
