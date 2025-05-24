@@ -8,9 +8,3 @@ services:
       - USER_PASSWORD=ssh-password
     ports:
       - "2222:2222"
-    networks:
-      - ocelotcloud_restic
-
-networks:
-  ocelotcloud_restic:
-    external: true
