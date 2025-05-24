@@ -51,11 +51,7 @@ func CreateTempZippedApp(
 	sampleFolder string,
 	extraCopyFiles ...string,
 ) []byte {
-	err := os.MkdirAll(OcelotCloudTempDir, 0700)
-	if err != nil {
-		Logger.Fatal("Failed to create temp dir for sample app: %v", err)
-	}
-	sampleAppTempDir, err := os.MkdirTemp(OcelotCloudTempDir, filepath.Base(appSubfolder))
+	sampleAppTempDir, err := os.MkdirTemp(TempDir, filepath.Base(appSubfolder))
 	if err != nil {
 		Logger.Fatal("Failed to create temp dir for sample app: %v", err)
 	}

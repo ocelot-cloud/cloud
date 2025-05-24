@@ -16,7 +16,7 @@ import (
 
 func TestMain(m *testing.M) {
 	common.InitializeDatabase(false, false)
-	err := os.MkdirAll(tools.OcelotCloudTempDir, 0700)
+	err := os.MkdirAll(tools.TempDir, 0700)
 	if err != nil {
 		panic(err)
 	}

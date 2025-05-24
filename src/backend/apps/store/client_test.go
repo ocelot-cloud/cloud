@@ -14,7 +14,6 @@ func TestMain(m *testing.M) {
 }
 
 func TestProvideAppStoreClient(t *testing.T) {
-	tools.CreateOcelotTempDir()
 	hubClient := ProvideAppStoreClient(INTEGRATION_TEST)
 	realClient, ok := hubClient.(*hubClientReal)
 	assert.True(t, ok)

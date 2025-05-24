@@ -177,7 +177,7 @@ func prepareResticOperationAndReturnCommandEnvs(isLocalBackup bool) ([]string, e
 }
 
 func createZipFile(backup BackupCreationDto) (string, string, error) {
-	tempDir, err := os.MkdirTemp(tools.OcelotCloudTempDir, "temp")
+	tempDir, err := os.MkdirTemp(tools.TempDir, "temp")
 	if err != nil {
 		return "", "", err
 	}
@@ -358,7 +358,7 @@ func (b *RealBackupManager) RestoreBackup(request tools.BackupOperationRequest) 
 }
 
 func (b *RealBackupManager) fetchAndPrepareZip(backupId string, envs []string) ([]byte, []string, error) {
-	tempDir, err := os.MkdirTemp(tools.OcelotCloudTempDir, "temp")
+	tempDir, err := os.MkdirTemp(tools.TempDir, "temp")
 	if err != nil {
 		return nil, nil, err
 	}

@@ -62,7 +62,6 @@ func runServer() {
 	createDockerNetworks()
 
 	utils.Logger = tools.Logger
-	tools.CreateOcelotTempDir()
 	setup.InitializeDatabase()
 	tools.LogGlobalVariables()
 

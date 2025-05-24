@@ -117,10 +117,3 @@ func WriteResponse(w http.ResponseWriter, message string) {
 		return
 	}
 }
-
-func CreateOcelotTempDir() {
-	err := os.MkdirAll(OcelotCloudTempDir, 0700)
-	if err != nil {
-		Logger.Fatal("Error creating temp dir: %v", err)
-	}
-}
